@@ -5,15 +5,10 @@ package feature;
  */
 public class Energy
 {
-    private int samplePerFrame; // according to samplingRate;
 
-    /**
-     * Constructor
-     * @param samplePerFrame
-     */
-    public Energy(int samplePerFrame)
+    public Energy()
     {
-        this.samplePerFrame = samplePerFrame;
+
     }
 
     /**
@@ -21,7 +16,7 @@ public class Energy
      * @param framedSignal
      * @return energy of given PCM frame
      */
-    public double [] calcEnergy(float[][] framedSignal)
+    public double [] calcLogEnergy(float[][] framedSignal, int samplePerFrame)
     {
         double [] energyValue = new double[framedSignal.length];
 
@@ -35,5 +30,28 @@ public class Energy
             energyValue[i] = Math.log(sum); // 取了log
         }
         return energyValue;
+    }
+
+    public double[] calcEnergy(float[][] framedSignal){
+        double [] energyValue = new double[framedSignal.length];
+
+        for (int i = 0; i < framedSignal.length; i++)
+        {
+            float sum = 0;
+            for (int j = 0; j < framedSignal[i].length; j++)
+            {
+                sum += Math.pow(framedSignal[i][j], 2);
+            }
+            energyValue[i] = sum;
+        }
+        return energyValue;
+    }
+
+    public double calcFrameEnergy(float[] signal){
+        float sum = 0;
+        for (float v : signal) {
+            sum += Math.pow(v, 2);
+        }
+        return sum;
     }
 }

@@ -45,7 +45,7 @@ public class FeatureExtract {
         this.noOfFrames = framedSignal.length;
         this.samplePerFrame = samplePerFrame;
         mfcc = new MFCC(samplePerFrame, samplingRate, numCepstra);
-        en = new Energy(samplePerFrame);
+        en = new Energy();
         fv = new FeatureVector();
         mfccFeature = new double[noOfFrames][numCepstra];
         deltaMfcc = new double[noOfFrames][numCepstra];
